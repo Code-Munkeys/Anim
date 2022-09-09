@@ -1,29 +1,28 @@
 /*	SPRITES.C
 
+	Developed by Franz Ayestaran 1992 - https://github.com/Code-Munkeys/Anim
+
 	Example source code for loading, saving and displaying a set of nine 50x50 pixel 16 colour sprites (45KB in size).
   
-  You may use this code in your own projects and upon doing so, you the programmer are solely
-  responsible for determining it's worthiness for any given application or task. Here clearly
-  states that the code is for learning purposes only and is not guaranteed to conform to any
-  programming style, standard, or be an adequate answer for any given problem.
-	
-	Developed by Franz Ayestaran 1992 - https://archive.org/details/anim.exe
-
+  	You may use this code in your own projects and upon doing so, you the programmer are solely
+  	responsible for determining it's worthiness for any given application or task. Here clearly
+  	states that the code is for learning purposes only and is not guaranteed to conform to any
+  	programming style, standard, or be an adequate answer for any given problem.
 */
 
 #include <stdio.h>
 #include <graphics.h>
 
-#define WRITE      "w"
-#define READ       "r"
+#define WRITE "w"
+#define READ  "r"
 
-int    GraphDriver;		        /* The Graphics device driver */
-int    GraphMode;	  	        /* The Graphics mode value */
-double AspectRatio;       		/* Aspect ratio of a pixel on the screen */
-int    MaxX, MaxY;		        /* The maximum resolution of the screen */
-int    MaxColors;	  	        /* The maximum # of colors available */
-int    ErrorCode;	          	/* Reports any graphics errors */
-struct palettetype palette;		/* Used to read palette info */
+int    GraphDriver;		/* The Graphics device driver */
+int    GraphMode;	  	/* The Graphics mode value */
+double AspectRatio;       	/* Aspect ratio of a pixel on the screen */
+int    MaxX, MaxY;		/* The maximum resolution of the screen */
+int    MaxColors;	  	/* The maximum # of colors available */
+int    ErrorCode;	        /* Reports any graphics errors */
+struct palettetype palette;	/* Used to read palette info */
 
 int Anim[9*50*50];
 
@@ -36,23 +35,23 @@ void Initialize(void)
 	int xasp, yasp;	/* Used to read the aspect ratio*/
 	GraphDriver = DETECT; /* Request auto-detection	*/
 
-  initgraph( &GraphDriver, &GraphMode, "" );
+  	initgraph( &GraphDriver, &GraphMode, "" );
 
 	ErrorCode = graphresult(); /* Read result of initialization*/
 	if( ErrorCode != grOk ){ /* Error occured during init	*/
 
 	printf(" Graphics System Error: %s\n", grapherrormsg( ErrorCode ) );
-    exit( 1 );
-  }
+    	exit( 1 );
+  	}
 
-	getpalette( &palette );   /* Read the palette from board	*/
-	MaxColors = getmaxcolor() + 1;   /* Read maximum number of colors*/
+	getpalette( &palette ); /* Read the palette from board	*/
+	MaxColors = getmaxcolor() + 1; /* Read maximum number of colors*/
 
-    MaxX = getmaxx();
+    	MaxX = getmaxx();
 	MaxY = getmaxy();   /* Read size of screen		*/
 
 	getaspectratio( &xasp, &yasp );	/* read the hardware aspect	*/
-	AspectRatio = (double)xasp / (double)yasp;  /* Get correction factor	*/
+	AspectRatio = (double)xasp / (double)yasp; /* Get correction factor	*/
 }
 
 /*####################################################*/
@@ -128,7 +127,7 @@ void Load_Sprites(char *filename, int first, int last)
 
 			 row++;
 			 index++;
-       putpixel(row, column, Data);
+       			 putpixel(row, column, Data);
 
 			} /* End Of File Reading */
 
@@ -142,19 +141,19 @@ void Load_Sprites(char *filename, int first, int last)
 
 void Pause(void)
 {
-  #define ESC	  0x1b
-  int c;
+  	#define ESC	  0x1b
+  	int c;
 
-  c = getch();				/* Read a character from kbd	*/
+  	c = getch();				/* Read a character from kbd	*/
 
-  if( ESC == c ){			/* Does user wish to leave?	*/
-    closegraph();			/* Change to text mode		*/
-    exit( 1 );				/* Return to OS 		*/
-  }
+  	if( ESC == c ){			/* Does user wish to leave?	*/
+    	closegraph();			/* Change to text mode		*/
+    	exit( 1 );				/* Return to OS 		*/
+  	}
 
-  if( 0 == c ){ 			/* Did use hit a non-ASCII key? */
-    c = getch();			/* Read scan code for keyboard	*/
-  }
+  	if( 0 == c ){ 			/* Did use hit a non-ASCII key? */
+   	 c = getch();			/* Read scan code for keyboard	*/
+  	}
 }
 
 /*#########################################################################*/
